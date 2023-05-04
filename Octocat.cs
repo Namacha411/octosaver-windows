@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace octsaver_windows
+namespace octosaver_windows
 {
-    internal class OctcatInfo
+    internal class OctocatInfo
     {
         public string Name { get; set; }
         public string ImageUrl { get; set; }
-        public OctcatInfo(string name, string url)
+        public OctocatInfo(string name, string url)
         {
             Name = name;
             ImageUrl = url;

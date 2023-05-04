@@ -1,10 +1,10 @@
-namespace octsaver_windows;
+namespace octosaver_windows;
 
 public partial class MainForm : Form
 {
     private Point _mouseLocation;
     private readonly System.Windows.Forms.Timer _timer = new();
-    private View _view = new();
+    private ParseRSS _view = new();
 
     const int intervalTime = 5 * 1000; // ms
 
@@ -24,14 +24,14 @@ public partial class MainForm : Form
     {
         InitializeComponent();
         InitTimer();
-        _view = await View.SetOctcatUrls();
+        _view = await ParseRSS.SetOctocatInfos();
         BackgroundImageLayout = ImageLayout.Zoom;
         Cursor.Hide();
     }
 
     public async void SetRandomImage()
     {
-        var info = await View.GetRandomOctcatInfoAsync();
+        var info = await ParseRSS.GetRandomOctocatInfoAsync();
         var webClient = new HttpClient();
         var bytesImage = await webClient.GetByteArrayAsync(info.ImageUrl);
         BackgroundImage = Image.FromStream(new MemoryStream(bytesImage));
@@ -40,7 +40,7 @@ public partial class MainForm : Form
 
     public async void SetRandomImage(object? sender, EventArgs e)
     {
-        var info = _view.GetRandomOctcatUrl();
+        var info = _view.GetRandomOctocatInfo();
         var webClient = new HttpClient();
         var bytesImage = await webClient.GetByteArrayAsync(info.ImageUrl);
         BackgroundImage = Image.FromStream(new MemoryStream(bytesImage));

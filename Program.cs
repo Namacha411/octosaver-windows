@@ -1,4 +1,4 @@
-namespace octsaver_windows;
+namespace octosaver_windows;
 
 static class Program
 {

@@ -1,39 +1,39 @@
 ﻿using CodeHollow.FeedReader;
 using System.Text.RegularExpressions;
 
-namespace octsaver_windows
+namespace octosaver_windows
 {
-    internal partial class View
+    internal partial class ParseRSS
     {
-        private List<OctcatInfo> octcatInfos = new();
+        private List<OctocatInfo> octocatInfos = new();
 
-        public View()
+        public ParseRSS()
         {
         }
         
-        public static async Task<View> SetOctcatUrls()
+        public static async Task<ParseRSS> SetOctocatInfos()
         {
-            View view = new()
+            ParseRSS view = new()
             {
-                octcatInfos = await GetOctcatInfosAsync()
+                octocatInfos = await GetOctocatInfosAsync()
             };
             return view;
         }
 
-        public OctcatInfo GetRandomOctcatUrl()
+        public OctocatInfo GetRandomOctocatInfo()
         {
             var r = new Random();
-            return octcatInfos[r.Next(octcatInfos.Count)];
+            return octocatInfos[r.Next(octocatInfos.Count)];
         }
 
-        public static async Task<OctcatInfo> GetRandomOctcatInfoAsync()
+        public static async Task<OctocatInfo> GetRandomOctocatInfoAsync()
         {
             var r = new Random();
-            var infos = await GetOctcatInfosAsync();
+            var infos = await GetOctocatInfosAsync();
             return infos[r.Next(infos.Count)];
         }
 
-        private static async Task<List<OctcatInfo>> GetOctcatInfosAsync()
+        private static async Task<List<OctocatInfo>> GetOctocatInfosAsync()
         {
             var feed = await FeedReader.ReadAsync("https://octodex.github.com/atom.xml");
             var re = MyRegex();
@@ -45,7 +45,7 @@ namespace octsaver_windows
                         .Match(item.Content)
                         .Groups["url"]
                         .Value;
-                    return new OctcatInfo(item.Title, url);
+                    return new OctocatInfo(item.Title, url);
                 })
                 .ToList();
             return urls;
